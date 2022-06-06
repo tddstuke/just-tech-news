@@ -1,12 +1,24 @@
 const router = require("express").Router();
 const res = require("express/lib/response");
-const { User } = require("../../models");
+const { User, Post, Vote } = require("../../models");
 
 // GET/api/users
 router.get("/", (req, res) => {
   // access our user model and run .findall() method
   User.findAll({
     attributes: { exclude: ["password"] },
+    include: [
+      {
+        model: Post,
+        attributes: ["id", "title", "post_url", "created_at"],
+      },
+      {
+        model: Post,
+        attributes: ["title"],
+        through: Vote,
+        as: "voted_posts",
+      },
+    ],
   })
     .then((dbUserData) => res.json(dbUserData))
     .catch((err) => {
