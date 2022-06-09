@@ -1,5 +1,5 @@
 {
-  "start": "node erver.js",
+  "start": "node server.js",
   "name": "just-tech-news",
   "version": "1.0.0",
   "description": "",
